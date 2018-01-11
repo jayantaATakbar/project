@@ -2,7 +2,7 @@
 
 import UIKit
 
-/*
+
 class Simple {
     
     init(){
@@ -72,7 +72,7 @@ print(SubSimple.staticOne())
 print(Simple.myStaticVar)
 print(Simple.myClassVar)
 print(SubSimple.myClassVar)
-*/
+
 
 
 
@@ -137,13 +137,14 @@ stackOfStrings.push("9W")
 //stackOfStrings.pop()
 print(stackOfStrings)
 
+//custom data
 typealias ContactData = (phone: Int, email: String)
 
 var contact : ContactData?
 
 func contactInfo(){
     
-    var contData: ContactData = (8451071128,"codergogoi@gmail.com")
+    var contData: ContactData = (9538754833,"codergogoi@gmail.com")
     
     contact = contData
 }
@@ -160,24 +161,4 @@ if let phone = contact?.phone{
     print("Email is : \(phone)")
 }
 
-
-
-
-
-var corners : [UIRectCorner] = []
-
- let left = UIRectCorner.topRight
-
- corners.append(UIRectCorner.topLeft)
- corners.append(UIRectCorner.topRight)
- corners.append(UIRectCorner.bottomLeft)
- corners.append(UIRectCorner.bottomRight)
-
-print(left)
-
-
-
-
-
-
-
+ 
