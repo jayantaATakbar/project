@@ -144,12 +144,12 @@ var contact : ContactData?
 
 func contactInfo(){
     
-    var contData: ContactData = (9538754833,"codergogoi@gmail.com")
+    let contData: ContactData = (9538754833,"codergogoi@gmail.com")
     
     contact = contData
 }
 
-print(contact)
+print(contact ?? "Found nil")
 
 contactInfo()
 
@@ -161,4 +161,23 @@ if let phone = contact?.phone{
     print("Email is : \(phone)")
 }
 
+//designated initializer and convenience  initializer
+
+class Flight{
+    
+    var flightIdentifier : String
+    var flightNumbet : Int
+    
  
+    init(fIdentifier: String, fNumber: Int) { //designated initilizer
+        
+        self.flightIdentifier = fIdentifier
+        self.flightNumbet = fNumber
+    }
+    
+    convenience init(fIdentifier: String) { // convenience initializer
+        
+        self.init(fIdentifier: fIdentifier, fNumber: 0)
+    }
+ 
+}
