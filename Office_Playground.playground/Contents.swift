@@ -4,10 +4,6 @@ import UIKit
 
 //: Playground - noun: a place where people can play
 
-import UIKit
-
-
-
 
 
 /*
@@ -172,6 +168,7 @@ if let phone = contact?.phone{
 */
 //designated initializer and convenience  initializer
 
+/*
 class Flight{
     
     var flightIdentifier : String
@@ -197,12 +194,14 @@ class Flight{
     }
  
 }
+*/
 /*
 let flight1 = Flight() // call convenience init
 let flight2 = Flight(fIdentifier: "6E") // convenience init
 let flight3 = Flight(fIdentifier: "6E", fNumber: 322) // designated init
 */
 
+/*
 class DirectFlight: Flight{
     
    
@@ -231,6 +230,7 @@ class DirectFlight: Flight{
     }
     
 }
+*/
 
 /*
 let directFlights = DirectFlight(fIdentifier: "SG", fNumber: 549)
@@ -351,6 +351,7 @@ print("Modified Task: \(forwardedMyDoc.taskOfTheDay) Updated:\(forwardedMyDoc.la
 
 */
 
+/*
 struct Traveller{
     
     let paxFirstName : String
@@ -381,6 +382,89 @@ travellers.sorted(by: {$0.paxFirstName > $1.paxLastName})
 for pax in travellers{
     print("\(pax.paxFirstName) \(pax.paxLastName) age: \(pax.paxAge)")
 }
+*/
+
+// Retain Cycle
+
+class Flight{
+    
+    let flightNo: String
+    
+    //strong reference
+    var seatInfo : SeatSequence?
+    
+    init(fno: String, seatInfo: SeatSequence?) {
+        
+        self.flightNo = fno
+        self.seatInfo = seatInfo
+        print("initilized Flight")
+        
+    }
+    
+    deinit {
+        print("Flight is being deinit")
+    }
+    
+}
+
+class SeatSequence{
+    
+    let seatNumber: String
+    //strong reference
+    //var currentFlight: Flight? // uncomment to check the retail cycle
+    
+    //weak reference
+    weak var currentFlight: Flight? // comment this to check retails cycle
+    
+    init(sNumber: String, currentFlight: Flight?) {
+        
+        self.seatNumber = sNumber
+        self.currentFlight = currentFlight
+        print("Initilized seat sequence....")
+        
+    }
+  
+    deinit {
+        print("Seat Sequence Deinitlilzed...")
+    }
+    
+}
+
+class SeatOperation{
+    
+    var flight: Flight?
+    var seatSequence: SeatSequence?
+    
+    func setupSeats(){
+        
+        flight = Flight(fno: "E245", seatInfo: nil)
+        seatSequence = SeatSequence(sNumber: "A23", currentFlight: nil)
+ 
+    }
+    
+    func updateCurrentFlightSeats(){
+        
+        flight?.seatInfo = seatSequence
+        seatSequence?.currentFlight = flight
+    }
+    
+    
+    func doneSeatOperation(){
+        flight = nil
+        seatSequence = nil
+    }
+    
+    
+}
+
+var seatOperation = SeatOperation()
+seatOperation.setupSeats()
+seatOperation.updateCurrentFlightSeats()
+seatOperation.doneSeatOperation() // created retain cycle due to strong reference with Flight in SeatSequence. Always kep weak reference to the parent if child class is pointing to parent class for avoid retain cycle.
+
+
+
+
 
 
 
